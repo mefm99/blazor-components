@@ -1,0 +1,70 @@
+﻿@if (IsLoading)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-@(LoadingType) text-@(LoadingColor)" style="width: @(LoadingSize)rem; height: @(LoadingSize)rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+}
+else
+{
+    @ChildContent
+}
+
+@code {
+    /// <summary>
+    /// Show loading template when value is true
+    /// </summary>
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    /// <summary>
+    /// Content which will be appear after loading
+    /// </summary>
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    /// <summary>
+    /// Loading time in ms
+    /// </summary>
+    [Parameter]
+    public int Delay { get; set; } = 1000;
+    /// <summary>
+    /// Loading color
+    /// </summary>
+    [Parameter]
+    public Color LoadingColor { get; set; } = Color.dark;
+    /// <summary>
+    /// Loading type
+    /// </summary>
+    [Parameter]
+    public Type LoadingType { get; set; } = Type.grow;
+    /// <summary>
+    /// Loading Size
+    /// </summary>
+    [Parameter]
+    public int LoadingSize { get; set; } = 3;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(Delay);
+        IsLoading = false;
+    }
+    public enum Color
+    {
+        primary,
+        secondary,
+        success,
+        danger,
+        warning,
+        info,
+        light,
+        dark
+    }
+    public enum Type
+    {
+        grow,
+        border
+    }
+}
