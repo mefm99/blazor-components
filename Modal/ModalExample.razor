@@ -1,0 +1,33 @@
+﻿@page "/ModalExample"
+
+<h1>Modal</h1>
+<button class="btn btn-dark" @onclick="e => Show = true"> Show Modal</button>
+@if (Show)
+{
+    <Modal IsShow="true"
+           CancelText="Cancel"
+           ConfirmText="Confirm"
+           MoadlTitle="Example Mefm"
+           OnCancel="e=> cancel()"
+           OnConfirm="e => confirm()"
+           ModalSize="Modal.Szie.xl">
+        <h1 class="mt-2">Hi</h1>
+        <p>bye</p>
+    </Modal>
+}
+<h1>@text</h1>
+@code{
+    public bool Show { get; set; }
+    public string text { get; set; }
+    void confirm()
+    {
+        text = "Confirmd Modal";
+        Show = false;
+    }
+    void cancel()
+    {
+        text = "Cancaled Modal";
+        Show = false;
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,69 @@
+﻿@if (IsShow)
+{
+    <div class="modal fade modal-@(ModalSize) show" tabindex="-1" role="dialog" aria-hidden="true" style="display:block;">
+        <div class="modal-dialog modal-@(ModalSize)" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> @MoadlTitle</h5>
+                    <button type="button" class="close" @onclick="OnCancel">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="OnCancel">@CancelText</button>
+                    <button type="button" class="btn btn-primary" @onclick="OnConfirm"> @ConfirmText</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    /// <summary>
+    /// Modal title
+    /// </summary>
+    [Parameter]
+    public string MoadlTitle { get; set; }
+
+    /// <summary>
+    /// Text of cancel button in modal
+    /// </summary>
+    [Parameter]
+    public string CancelText { get; set; } = "Cancel";
+
+    /// <summary>
+    /// Text of confirm button in modal
+    /// </summary>
+    [Parameter]
+    public string ConfirmText { get; set; } = "Ok";
+
+    /// <summary>
+    /// Content of Modal
+    /// </summary>
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    /// <summary>
+    /// Show modal when value is true
+    /// </summary>
+    [Parameter]
+    public bool IsShow { get; set; }
+    /// <summary>
+    /// Modal Size
+    /// </summary>
+    [Parameter]
+    public Szie ModalSize { get; set; } = Szie.xl;
+
+    /// <summary>
+    /// Buttons Events
+    /// </summary>
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback OnConfirm { get; set; }
+    public enum Szie
+    {
+        sm, lg, xl
+    }
+}
